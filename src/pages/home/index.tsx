@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 import api from '../../api';
 import { Item } from '../../components/item';
 import type { Product } from '../../types';
@@ -27,8 +27,8 @@ export function Home() {
     <div className={styles.main}>
       <div className={styles.header}>
         <h4>Products</h4>
-        <input 
-          type="text" 
+        <input
+          type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search products..."
