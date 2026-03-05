@@ -12,8 +12,8 @@ export const Item = ({ product }: ItemProps) => {
       <img src={product.imgUrl} alt={`${product.brand} ${product.model}`} />
       <div className={styles.info}>
         <div>
-          <h3>{product.brand}</h3>
-          <p>{product.model}</p>
+          <h3 title={product.brand}>{product.brand}</h3>
+          <p title={product.model}>{product.model}</p>
         </div>
         <div className={styles.price}>
           {product.price ? product.price : '~'}€
