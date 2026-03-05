@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import type { Product } from '../../types';
 import styles from './Item.module.scss';
 
@@ -7,7 +8,7 @@ interface ItemProps {
 
 export const Item = ({ product }: ItemProps) => {
   return (
-    <div className={styles.container} tabIndex={0}>
+    <Link to={`/product/${product.id}`} className={styles.container}>
       <img src={product.imgUrl} alt={`${product.brand} ${product.model}`} />
       <div className={styles.info}>
         <div>
@@ -18,6 +19,6 @@ export const Item = ({ product }: ItemProps) => {
           {product.price ? product.price : '~'}€
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
