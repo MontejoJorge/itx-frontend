@@ -6,7 +6,7 @@ export interface Product {
   imgUrl: string;
 }
 
-export interface ProductDetails {
+export interface ProductDetailsI {
   id: string;
   brand: string;
   model: string;

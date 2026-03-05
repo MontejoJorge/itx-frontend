@@ -1,0 +1,45 @@
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .optionGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .optionLabel {
+      font-weight: 600;
+      color: var(--muted-foreground);
+      font-size: 14px;
+      letter-spacing: 0.5px;
+    }
+
+    .optionsList {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+
+      .option {
+        padding: 10px 20px;
+        background: var(--secondary);
+        color: var(--secondary-foreground);
+        border-radius: 6px;
+        cursor: pointer;
+        border: 2px dashed var(--border);
+
+        &:focus-visible {
+          outline: 2px solid var(--ring);
+          outline-offset: 2px;
+        }
+
+        &.selected {
+          background: var(--card);
+          color: var(--card-foreground);
+          border-color: var(--border);
+          border-style: solid;
+        }
+      }
+    }
+  }
+}
