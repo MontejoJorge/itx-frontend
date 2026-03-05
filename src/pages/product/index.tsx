@@ -1,4 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import api from '../../api';
 import { Options } from '../../components/options';
@@ -16,6 +17,46 @@ export function Product() {
     gcTime: 1000 * 60 * 60,
   });
 
+  const [selectedOptions, setSelectedOptions] = useState<
+    Record<string, number | null>
+  >({
+    colors: null,
+    storages: null,
+  });
+
+  useEffect(() => {
+    if (!product) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setSelectedOptions({
+      colors:
+        product.options.colors.length === 1
+          ? product.options.colors[0].code
+          : null,
+      storages:
+        product.options.storages.length === 1
+          ? product.options.storages[0].code
+          : null,
+    });
+  }, [product]);
+
+  const addToCart = useMutation({
+    mutationFn: (data: {
+      id: string;
+      colorCode: number;
+      storageCode: number;
+    }) => api.post('cart', data),
+  });
+
+  const handleAddToCart = () => {
+    if (id && selectedOptions.colors && selectedOptions.storages) {
+      addToCart.mutate({
+        id,
+        colorCode: selectedOptions.colors,
+        storageCode: selectedOptions.storages,
+      });
+    }
+  };
+
   if (!product) return null;
 
   return (
@@ -28,8 +69,17 @@ export function Product() {
           <ProductDetails product={product} />
         </div>
         <div className={styles.bottom}>
-          <Options options={product.options} />
-          <button>Add to cart</button>
+          <Options
+            options={product.options}
+            selected={selectedOptions}
+            onSelect={setSelectedOptions}
+          />
+          <button
+            onClick={handleAddToCart}
+            disabled={!selectedOptions.colors || !selectedOptions.storages}
+          >
+            Add to cart
+          </button>
         </div>
       </div>
     </main>

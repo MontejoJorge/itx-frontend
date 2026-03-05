@@ -1,22 +1,18 @@
 import clsx from 'clsx';
-import { useState } from 'react';
 import type { Options as OptionsType } from '../../types';
 import styles from './Options.module.scss';
 
 interface Props {
   options: OptionsType;
+  selected: Record<string, number | null>;
+  onSelect: (selected: Record<string, number | null>) => void;
 }
 
-export function Options({ options }: Props) {
-  const [selected, setSelected] = useState<Record<string, number | null>>({
-    colors: options.colors.length === 1 ? options.colors[0].code : null,
-    storages: options.storages.length === 1 ? options.storages[0].code : null,
-  });
-
+export function Options({ options, selected, onSelect }: Props) {
   const handleKeyDown = (e: React.KeyboardEvent, code: number, key: string) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      setSelected((prev) => ({ ...prev, [key]: code }));
+      onSelect({ ...selected, [key]: code });
     }
   };
 
@@ -31,9 +27,7 @@ export function Options({ options }: Props) {
               className={clsx(styles.option, {
                 [styles.selected]: selected.colors === color.code,
               })}
-              onClick={() =>
-                setSelected((prev) => ({ ...prev, colors: color.code }))
-              }
+              onClick={() => onSelect({ ...selected, colors: color.code })}
               onKeyDown={(e) => handleKeyDown(e, color.code, 'colors')}
               tabIndex={0}
             >
@@ -51,9 +45,7 @@ export function Options({ options }: Props) {
               className={clsx(styles.option, {
                 [styles.selected]: selected.storages === storage.code,
               })}
-              onClick={() =>
-                setSelected((prev) => ({ ...prev, storages: storage.code }))
-              }
+              onClick={() => onSelect({ ...selected, storages: storage.code })}
               onKeyDown={(e) => handleKeyDown(e, storage.code, 'storages')}
               tabIndex={0}
             >
