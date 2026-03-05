@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import api from '../../api';
 import { Item } from '../../components/item';
+import { ItemSkeleton } from '../../components/item/item-skeleton';
 import type { Product } from '../../types';
 import styles from './home.module.scss';
 
@@ -35,6 +36,8 @@ export function Home() {
         />
       </div>
       <div className={styles.products}>
+        {query.isLoading &&
+          Array.from({ length: 20 }).map((_, i) => <ItemSkeleton key={i} />)}
         {filteredProducts?.map((product) => (
           <Item key={product.id} product={product} />
         ))}

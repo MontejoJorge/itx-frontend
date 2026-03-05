@@ -25,10 +25,11 @@
     align-items: center;
     gap: 8px;
 
-    div {
+    .left {
       display: flex;
       flex-direction: column;
       gap: 4px;
+      width: 100%;
     }
 
     h3 {
@@ -53,5 +54,47 @@
       color: var(--chart-1);
       margin-top: auto;
     }
+  }
+}
+
+.skeletonImage,
+.skeletonTitle,
+.skeletonSubtitle,
+.skeletonPrice {
+  animation: pulse ease-in 2s infinite;
+  background: var(--muted);
+  border-radius: 4px;
+}
+
+.skeletonImage {
+  height: 150px;
+  width: 100%;
+}
+
+.skeletonTitle {
+  display: block;
+  height: 18px;
+  margin-bottom: 4px;
+  width: 60%;
+}
+
+.skeletonSubtitle {
+  display: block;
+  height: 14px;
+  width: 80%;
+}
+
+.skeletonPrice {
+  height: 20px;
+  width: 50px;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.2;
   }
 }
